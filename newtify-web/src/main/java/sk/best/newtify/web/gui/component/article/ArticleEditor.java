@@ -20,6 +20,7 @@ import sk.best.newtify.api.dto.ETopicType;
 import sk.best.newtify.web.util.ArticleMapper;
 
 import javax.annotation.PostConstruct;
+import java.util.regex.Pattern;
 
 /**
  * @author Marek Urban
@@ -44,6 +45,7 @@ public class ArticleEditor extends VerticalLayout {
     private final Select<ETopicType> topicSelector   = new Select<>(ETopicType.values());
     private final TextArea           contentTextArea = new TextArea();
     private final Binder<ArticleDTO> articleBinder   = new Binder<>();
+    private final TextField          emailField      = new TextField();
 
     public ArticleEditor(ArticlesApi articlesApi) {
         this.articlesApi = articlesApi;
@@ -53,6 +55,7 @@ public class ArticleEditor extends VerticalLayout {
         authorField.setSizeFull();
         topicSelector.setSizeFull();
         contentTextArea.setSizeFull();
+        emailField.setSizeFull();
 
         confirmDialog.setHeader("Create new article");
         confirmDialog.setHeight("600px");
@@ -66,6 +69,7 @@ public class ArticleEditor extends VerticalLayout {
         formLayout.addFormItem(shortTitleField, "Short intro");
         formLayout.addFormItem(authorField, "Author");
         formLayout.addFormItem(topicSelector, "Topic");
+        formLayout.addFormItem(emailField, "Email");
 
         contentTextArea.setLabel("Content");
         formLayout.add(contentTextArea);
@@ -153,7 +157,32 @@ public class ArticleEditor extends VerticalLayout {
                 })
                 .bind(ArticleDTO::getText, ArticleDTO::setText);
 
+
+        articleBinder
+                .forField(emailField)
+                .withValidator((value, context) -> {
+                    if (StringUtils.isBlank(value)) {
+                        return ValidationResult.error("Email is missing!");
+                    }
+
+                    if (checkIfEmailIsValid(value))
+                        return ValidationResult.ok();
+                    else
+                        return ValidationResult.error("Email is not valid!");
+
+                })
+                .bind(ArticleDTO::getEmail, ArticleDTO::setEmail);
+
+
         articleBinder.addValueChangeListener(event -> articleBinder.validate());
+    }
+
+    public boolean checkIfEmailIsValid(String emailAddress) {
+        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        return Pattern.compile(regexPattern)
+                .matcher(emailAddress)
+                .matches();
     }
 
     public void clear() {

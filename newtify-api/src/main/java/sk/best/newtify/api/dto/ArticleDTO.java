@@ -46,6 +46,9 @@ public class ArticleDTO implements Serializable {
   @JsonProperty("topicType")
   private ETopicType topicType;
 
+  @JsonProperty("email")
+  private String email;
+
   public ArticleDTO uuid(String uuid) {
     this.uuid = uuid;
     return this;
@@ -164,6 +167,26 @@ public class ArticleDTO implements Serializable {
     this.topicType = topicType;
     return this;
   }
+
+  public ArticleDTO email(String email) {
+    this.email = email;
+    return this;
+  }
+  /**
+   * Get email
+   * @return email
+  */
+
+  @Schema(name = "email", required = false)
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+
 
   /**
    * Get topicType
