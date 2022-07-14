@@ -28,7 +28,7 @@ import java.util.Locale;
 public class NameDayWidgetComponent extends FlexLayout {
 
     private static final long              serialVersionUID    = 1414727226197592073L;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d LLLL uuuu", Locale.ENGLISH);
+    private static DateTimeFormatter DATE_TIME_FORMATTER;
 
     private final NamedaysApi namedaysApi;
 
@@ -43,6 +43,20 @@ public class NameDayWidgetComponent extends FlexLayout {
         int currentMonth = calendar.get(Calendar.MONTH) + 1;
         int currentYear = calendar.get(Calendar.YEAR);
         NameDayDTO data = namedaysApi.retrieveNameDay(currentMonth, currentDay).getBody();
+
+        String format;
+
+        if(currentDay%10==1)
+            format= String.valueOf(currentDay)+"['st']";
+        else if(currentDay%10==2)
+            format= String.valueOf(currentDay)+"['nd']";
+        else if(currentDay%10==3)
+            format= String.valueOf(currentDay)+"['rd']";
+        else
+            format= String.valueOf(currentDay)+"['th']";
+
+
+        DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(format +"[' of']"+" LLLL uuuu", Locale.ENGLISH);
 
         createWidgetIcon();
         createDatePart(currentYear, currentMonth, currentDay);

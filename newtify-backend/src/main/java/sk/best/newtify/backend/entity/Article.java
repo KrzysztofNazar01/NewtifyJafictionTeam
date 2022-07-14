@@ -1,10 +1,15 @@
 package sk.best.newtify.backend.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import sk.best.newtify.backend.entity.enums.TopicType;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+
+@Getter
+@Setter
 @Entity
 public class Article {
 
