@@ -108,6 +108,26 @@ public class MainLayout extends AppLayout {
             return;
         }
 
+        if (tabId.equals(ETopicType.FASHION.getValue())) {
+            UI.getCurrent().navigate(ETopicType.FASHION.getValue().toLowerCase());
+            return;
+        }
+
+        if (tabId.equals(ETopicType.FINANCE.getValue())) {
+            UI.getCurrent().navigate(ETopicType.FINANCE.getValue().toLowerCase());
+            return;
+        }
+
+        if (tabId.equals(ETopicType.MOVIE.getValue())) {
+            UI.getCurrent().navigate(ETopicType.MOVIE.getValue().toLowerCase());
+            return;
+        }
+
+        if (tabId.equals(ETopicType.MUSIC.getValue())) {
+            UI.getCurrent().navigate(ETopicType.MUSIC.getValue().toLowerCase());
+            return;
+        }
+
         UI.getCurrent().navigate(""); // default
     }
 
@@ -118,6 +138,18 @@ public class MainLayout extends AppLayout {
                 break;
             case GAMING:
                 topicTab.add(VaadinIcon.GAMEPAD.create());
+                break;
+            case FASHION:
+                topicTab.add(VaadinIcon.CART.create());
+                break;
+            case FINANCE:
+                topicTab.add(VaadinIcon.DOLLAR.create());
+                break;
+            case MOVIE:
+                topicTab.add(VaadinIcon.MOVIE.create());
+                break;
+            case MUSIC:
+                topicTab.add(VaadinIcon.MUSIC.create());
                 break;
             default:
                 topicTab.setEnabled(false);
