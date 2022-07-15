@@ -31,6 +31,7 @@ public class ArticleDialogComponent extends Dialog {
     private final Image    image       = new Image();
     private final H2       title       = new H2();
     private final Span     author      = new Span();
+    private final Span     email       = new Span();
     private final Span     date        = new Span();
     private final H5       previewText = new H5();
     private final TextArea content     = new TextArea();
@@ -43,10 +44,11 @@ public class ArticleDialogComponent extends Dialog {
         styleImage();
         styleTitle();
         styleAuthor();
+        styleEmail();
         stylePreviewText();
         styleContent();
 
-        Span titleAndAuthor = new Span(title, author, date);
+        Span titleAndAuthor = new Span(title, email, author, date);
         titleAndAuthor.getStyle()
                 .set("margin-left", "0.5em");
 
@@ -68,6 +70,7 @@ public class ArticleDialogComponent extends Dialog {
         title.setText(article.getTitle());
         previewText.setText(article.getShortTitle());
         author.setText(article.getAuthor());
+        email.setText(article.getEmail());
         content.setValue(article.getText());
 
         date.setText(DATE_FORMATTER.format(
@@ -94,6 +97,7 @@ public class ArticleDialogComponent extends Dialog {
         title.removeAll();
         previewText.removeAll();
         author.removeAll();
+        email.removeAll();
         date.removeAll();
         content.clear();
 
@@ -119,6 +123,14 @@ public class ArticleDialogComponent extends Dialog {
         author.add(icon);
         author.getElement().getThemeList().add("badge primary");
         author.getStyle()
+                .set("margin", "0.75em 1.5em 0em auto");
+    }
+    private void styleEmail() {
+        Icon icon = VaadinIcon.USER.create();
+        icon.getStyle().set("margin-left", "0.5em");
+        email.add(icon);
+        email.getElement().getThemeList().add("badge primary");
+        email.getStyle()
                 .set("margin", "0.75em 1.5em 0em auto");
     }
 

@@ -214,6 +214,7 @@ public class AdminView extends SplitLayout {
 
             Div content = new Div();
             content.add(new Span(article.getAuthor()));
+            content.add(new Span(article.getEmail()));
             content.add(new Span(
                     DATE_FORMATTER.format(
                             Instant.ofEpochSecond(article.getCreatedAt())

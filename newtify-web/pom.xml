@@ -70,6 +70,10 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-board-flow</artifactId>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
