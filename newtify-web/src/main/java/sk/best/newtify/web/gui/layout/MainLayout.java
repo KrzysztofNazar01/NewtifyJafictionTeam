@@ -36,6 +36,8 @@ import java.util.Optional;
 public class MainLayout extends AppLayout {
 
     private static final long serialVersionUID = 4107656392983873277L;
+    Tabs tabs = new Tabs(true);
+    Map<ETopicType, Tab> topic2Tab = new HashMap<>();
 
     private VerticalLayout navigationBar = new VerticalLayout();
 
@@ -56,9 +58,6 @@ public class MainLayout extends AppLayout {
     }
 
     private void createTabs() {
-        Tabs tabs = new Tabs(true);
-
-        Map<ETopicType, Tab> topic2Tab = new HashMap<>();
 
         for (ETopicType topic : ETopicType.values()) {
             Tab topicTab = new Tab();
@@ -165,6 +164,16 @@ public class MainLayout extends AppLayout {
                 .set("font-size", "var(--lumo-font-size-l)")
                 .set("margin", "0 0 0 0.5em");
         Icon titleIcon = VaadinIcon.NEWSPAPER.create();
+
+        title.addClickListener(event -> {
+            UI.getCurrent().navigate("news");
+            tabs.setSelectedTab(topic2Tab.get(ETopicType.NEWS));
+        });
+        titleIcon.addClickListener(event -> {
+            UI.getCurrent().navigate("news");
+            tabs.setSelectedTab(topic2Tab.get(ETopicType.NEWS));
+        });
+
 
         titleDiv.add(titleIcon, title);
         titleDiv.getStyle()
