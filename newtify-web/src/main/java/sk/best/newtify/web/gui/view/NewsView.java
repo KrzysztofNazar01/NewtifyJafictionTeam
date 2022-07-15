@@ -60,12 +60,10 @@ public class NewsView extends FlexLayout {
         middleContent.setAlignItems(Alignment.CENTER);
         setFlexShrink(1, middleContent);
         setFlexGrow(2, middleContent);
-
         fetchArticles();
         for (ArticleDTO article : articles) {
             ArticlePreviewComponent previewComponent = articlePreviewObjectFactory.getObject();
             previewComponent.setArticle(article);
-            middleContent.add(previewComponent);
         }
     }
 

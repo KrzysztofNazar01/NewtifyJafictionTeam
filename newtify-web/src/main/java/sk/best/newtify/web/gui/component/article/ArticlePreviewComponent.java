@@ -1,12 +1,16 @@
 package sk.best.newtify.web.gui.component.article;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.listbox.ListBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.DomEvent;
 import com.vaadin.flow.server.StreamResource;
@@ -38,6 +42,7 @@ public class ArticlePreviewComponent extends Composite<VerticalLayout> {
     private final Image image       = new Image();
     private final H2    title       = new H2();
     private final Span  author      = new Span();
+    private final Span  email       = new Span();
     private final Span  date        = new Span();
     private final H5    previewText = new H5();
 
@@ -60,6 +65,7 @@ public class ArticlePreviewComponent extends Composite<VerticalLayout> {
         title.setText(article.getTitle());
         previewText.setText(article.getShortTitle());
         author.setText(article.getAuthor());
+        email.setText(article.getEmail());
 
         date.setText(DATE_FORMATTER.format(
                         Instant.ofEpochSecond(article.getCreatedAt())
@@ -99,7 +105,8 @@ public class ArticlePreviewComponent extends Composite<VerticalLayout> {
     private void clear() {
         title.removeAll();
         previewText.removeAll();
-    author.removeAll();
+        author.removeAll();
+        email.removeAll();
         date.removeAll();
 
         image.removeAll();
@@ -112,6 +119,7 @@ public class ArticlePreviewComponent extends Composite<VerticalLayout> {
         styleImage();
         styleTitle();
         styleAuthor();
+        styleEmail();
         stylePreviewText();
 
         rootLayout.setSpacing(false);
@@ -121,13 +129,30 @@ public class ArticlePreviewComponent extends Composite<VerticalLayout> {
                 .set("cursor", "pointer")
                 .set("background", "rgba(0, 0, 0, 0.1)");
 
-        Span titleAndAuthor = new Span(title, author, date);
+        Span titleAndAuthor = new Span(title, author, email, date);
         titleAndAuthor.getStyle()
                 .set("margin-left", "0.5em");
 
-        rootLayout.add(image, titleAndAuthor, previewText);
+        Button emailButton = createEmailToAuthorButton();
+
+        rootLayout.add(image, titleAndAuthor, previewText, emailButton);
+
         rootLayout.getElement().addEventListener("click", this::onPreviewClicked);
         return rootLayout;
+    }
+
+    private Button createEmailToAuthorButton() {
+        Button emailButton = new Button("Contact author", VaadinIcon.PLUS_SQUARE_O.create());
+        emailButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        emailButton.addClickListener(event -> {
+            String mailtoUrl = "mailto:";
+            String emailTo = author.getText() + "@newtify.com";
+            String emailSubject = "?subject=" + title.getText();
+            String emailBody = "&body=Email regarding the article with content: " + previewText.getText() + " written on date " + date.getText();
+            mailtoUrl += emailTo + emailSubject + emailBody;
+            UI.getCurrent().getPage().executeJavaScript("window.location.replace(\"" + mailtoUrl + "\");");
+        });
+        return emailButton;
     }
 
     private void styleImage() {
@@ -140,6 +165,15 @@ public class ArticlePreviewComponent extends Composite<VerticalLayout> {
     private void styleTitle() {
         title.getStyle()
                 .set("margin", "0");
+    }
+
+    private void styleEmail() {
+        Icon icon = VaadinIcon.MAILBOX.create();
+        icon.getStyle().set("margin-left", "0.5em");
+        email.add(icon);
+        email.getElement().getThemeList().add("badge primary");
+        email.getStyle()
+                .set("margin", "0.75em 1.5em 0em auto");
     }
 
     private void styleAuthor() {

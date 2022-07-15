@@ -50,7 +50,6 @@ public class FashionView extends FlexLayout {
         createMainPane();
         createLeftWidgetPane();
         createRightWidgetPane();
-
         add(leftWidgetContent, middleContent, rightWidgetContent);
     }
 
