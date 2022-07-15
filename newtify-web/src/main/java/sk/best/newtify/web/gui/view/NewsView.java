@@ -9,7 +9,10 @@ import org.springframework.beans.factory.ObjectFactory;
 import sk.best.newtify.api.ArticlesApi;
 import sk.best.newtify.api.dto.ArticleDTO;
 import sk.best.newtify.web.gui.component.article.ArticlePreviewComponent;
+import sk.best.newtify.web.gui.component.widget.CryptoWidgetComponent;
+import sk.best.newtify.web.gui.component.widget.JokeWidgetComponent;
 import sk.best.newtify.web.gui.component.widget.NameDayWidgetComponent;
+import sk.best.newtify.web.gui.component.widget.WeatherWidgetComponent;
 import sk.best.newtify.web.gui.layout.MainLayout;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +34,9 @@ public class NewsView extends FlexLayout {
     private final ArticlesApi                            articlesApi;
     private final ObjectFactory<ArticlePreviewComponent> articlePreviewObjectFactory;
     private final ObjectFactory<NameDayWidgetComponent>  nameDayWidgetComponentObjectFactory;
+    private final ObjectFactory<WeatherWidgetComponent>  weatherWidgetComponentObjectFactory;
+    private final ObjectFactory<JokeWidgetComponent>  jokeWidgetComponentObjectFactory;
+    private final ObjectFactory<CryptoWidgetComponent>  cryptoWidgetComponentObjectFactory;
 
     private final VerticalLayout middleContent      = new VerticalLayout();
     private final VerticalLayout leftWidgetContent  = new VerticalLayout();
@@ -40,10 +46,16 @@ public class NewsView extends FlexLayout {
 
     public NewsView(ArticlesApi articlesApi,
                     ObjectFactory<ArticlePreviewComponent> articlePreviewObjectFactory,
-                    ObjectFactory<NameDayWidgetComponent> nameDayWidgetComponentObjectFactory) {
+                    ObjectFactory<NameDayWidgetComponent> nameDayWidgetComponentObjectFactory,
+                    ObjectFactory<WeatherWidgetComponent> weatherWidgetComponentObjectFactory,
+                    ObjectFactory<JokeWidgetComponent>  jokeWidgetComponentObjectFactory,
+                    ObjectFactory<CryptoWidgetComponent>  cryptoWidgetComponentObjectFactory) {
         this.articlesApi                         = articlesApi;
         this.articlePreviewObjectFactory         = articlePreviewObjectFactory;
         this.nameDayWidgetComponentObjectFactory = nameDayWidgetComponentObjectFactory;
+        this.weatherWidgetComponentObjectFactory = weatherWidgetComponentObjectFactory;
+        this.jokeWidgetComponentObjectFactory = jokeWidgetComponentObjectFactory;
+        this.cryptoWidgetComponentObjectFactory = cryptoWidgetComponentObjectFactory;
     }
 
     @PostConstruct
@@ -72,6 +84,12 @@ public class NewsView extends FlexLayout {
         rightWidgetContent.setAlignItems(Alignment.CENTER);
         setFlexShrink(2, rightWidgetContent);
         setFlexGrow(1, rightWidgetContent);
+
+        JokeWidgetComponent jokeWidget = jokeWidgetComponentObjectFactory.getObject();
+        rightWidgetContent.add(jokeWidget);
+
+        CryptoWidgetComponent cryptoWidget = cryptoWidgetComponentObjectFactory.getObject();
+        rightWidgetContent.add(cryptoWidget);
     }
 
     private void createLeftWidgetPane() {
@@ -82,6 +100,9 @@ public class NewsView extends FlexLayout {
 
         NameDayWidgetComponent nameDayWidget = nameDayWidgetComponentObjectFactory.getObject();
         leftWidgetContent.add(nameDayWidget);
+
+        WeatherWidgetComponent weatherWidget = weatherWidgetComponentObjectFactory.getObject();
+        leftWidgetContent.add(weatherWidget);
     }
 
     private void fetchArticles() {

@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * CreateArticleDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-14T10:44:57.456682400+02:00[Europe/Budapest]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-07-15T09:45:25.816511600+03:00[Europe/Athens]")
 public class CreateArticleDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;

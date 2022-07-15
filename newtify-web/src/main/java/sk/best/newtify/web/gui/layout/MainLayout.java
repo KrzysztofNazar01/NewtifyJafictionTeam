@@ -187,6 +187,10 @@ public class MainLayout extends AppLayout {
                 .set("height", "100%");
 
         navigationBar.add(titleDiv);
+//        .pointer {
+//            --lumo-clickable-cursor: pointer;
+//            cursor: var(--lumo-clickable-cursor);
+//        }
     }
 
 }
