@@ -1,5 +1,9 @@
 # Newtify – web application using Spring and Vaadin 
-Author: Krzysztof Nazar, John Nikolau, 2 more
+Authors of this project are members of "*Javafiction*" team, which consisted of:
+-	**Elena Ernesta Miricâ** from Bucharest, Romania
+-	**John Nikolau** from Patras, Greece
+-	**Malvin Iabloncic** from Cluj-Napoca, Romania
+-	**Krzysztof Nazar** from Gdańsk, Poland
 
 ## Description
 **The goal of this project was to deploy a web application displaying news from database. The user can also use widgets that display data collected from various APIs.**
@@ -19,7 +23,7 @@ Text source: [link](https://www.best.eu.org/courses/welcome.jsp)
 You can learn more about this Course on [this page](https://www.best.eu.org/event/details.jsp?activity=o1nrqbv).
 
 ## Description
-To pass the course, we had to create a web application using the SpringBoot and Vaadin frameworks. The project had to be done in a group of 4 participants of the course. The teachers gave us list of tasks to do – each task had an appropriate amount of points corresponding to the level of difficulty. 
+To pass the course, we had to create a web application using the SpringBoot and Vaadin frameworks. The project had to be done in a group of 4 participants of the course. The teachers gave us list of tasks to do – each task had an appropriate number of points corresponding to the level of difficulty. 
 My team accomplished these tasks:
 1.	add unique icons into NavBar tabs for individual topics + implements other views (filter) --> 5 points
 2.	reroute to news tab after click on newtify title or icon --> 5 points
@@ -28,7 +32,7 @@ My team accomplished these tasks:
 5.	add button to article widget to open native mail client (bonus with already predefined field content (article text, title as subject) --> 10 points
 6.	connect to any public API and represent its response into custom widget (3 times) --> 30 points
 
-## Used libraries
+## Used frameworks
  - Springboot
  - Vaadin
 
@@ -36,3 +40,6 @@ My team accomplished these tasks:
  - Add an option for users to create comments under each news
  - Add an option for the admin to change or delete users’ comments 
  - Add more widgets with useful APIs
+
+## From the authors
+#JAVAFICATION FOREVER <3
